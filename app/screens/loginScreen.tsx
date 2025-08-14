@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Image, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 
-export default function LoginForm() {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
