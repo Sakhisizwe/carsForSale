@@ -1,20 +1,11 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { Formik } from 'formik';
+import React from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SignUpSchema } from '../utils/validationSchemas';
 
 export default function SignUpScreen() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  const handleSignUp = () => {
-    if (password !== confirmPassword) {
-      console.log('Passwords do not match!');
-      return;
-    }
-    console.log('Sign up with:', email, password);
-  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -22,41 +13,59 @@ export default function SignUpScreen() {
         <Text style={styles.header}>Create your account</Text>
       </View>
 
-      <View style={styles.container}>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Enter your email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          style={styles.input}
-        />
+      <Formik
+        initialValues={{ email: '', password: '', confirmPassword: '' }}
+        validationSchema={SignUpSchema}
+        onSubmit={(values) => {
+          console.log('Sign up with:', values);
+        }}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
+          <View style={styles.container}>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              value={values.email}
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              placeholder="Enter your email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={styles.input}
+            />
+            {errors.email && touched.email && <Text style={styles.error}>{errors.email}</Text>}
 
-        <Text style={styles.label}>Password</Text>
-        <TextInput
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Enter your password"
-          secureTextEntry
-          style={styles.input}
-        />
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              value={values.password}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              placeholder="Enter your password"
+              secureTextEntry
+              style={styles.input}
+            />
+            {errors.password && touched.password && <Text style={styles.error}>{errors.password}</Text>}
 
-        <Text style={styles.label}>Confirm Password</Text>
-        <TextInput
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          placeholder="Confirm your password"
-          secureTextEntry
-          style={styles.input}
-        />
+            <Text style={styles.label}>Confirm Password</Text>
+            <TextInput
+              value={values.confirmPassword}
+              onChangeText={handleChange('confirmPassword')}
+              onBlur={handleBlur('confirmPassword')}
+              placeholder="Confirm your password"
+              secureTextEntry
+              style={styles.input}
+            />
+            {errors.confirmPassword && touched.confirmPassword && (
+              <Text style={styles.error}>{errors.confirmPassword}</Text>
+            )}
 
-        <Button title="Sign Up" onPress={handleSignUp} />
+            <Button title="Sign Up" onPress={() => handleSubmit()} disabled={isSubmitting || !isValid} />
 
-        <TouchableOpacity onPress={() => router.push('/screens/loginScreen')} style={styles.loginTextContainer}>
-          <Text style={styles.loginText}>Already have an account? Login</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity onPress={() => router.push('/screens/loginScreen')} style={styles.loginTextContainer}>
+              <Text style={styles.loginText}>Already have an account? Login</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </Formik>
     </SafeAreaView>
   );
 }
@@ -91,6 +100,11 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 15,
     width: '100%',
+  },
+  error: { 
+    fontSize: 12, 
+    color: 'red', 
+    marginBottom: 10 
   },
   loginTextContainer: { 
     marginTop: 20, 
