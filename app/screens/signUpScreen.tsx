@@ -1,11 +1,31 @@
 import { useRouter } from 'expo-router';
-import { Formik } from 'formik';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { auth } from '../../firebase';
+import { SignUpFormValues } from '../utils/types';
 import { SignUpSchema } from '../utils/validationSchemas';
 
 export default function SignUpScreen() {
   const router = useRouter();
+
+const handleSignUp = async (
+  values: SignUpFormValues,
+  formikHelpers: FormikHelpers<SignUpFormValues>
+) => {
+  const { setSubmitting } = formikHelpers;
+
+  try {
+    await createUserWithEmailAndPassword(auth, values.email, values.password);
+    Alert.alert('Success', 'Account created successfully!');
+    router.push('/screens/loginScreen');
+  } catch (error: any) {
+    Alert.alert('Error', error.message);
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -13,12 +33,10 @@ export default function SignUpScreen() {
         <Text style={styles.header}>Create your account</Text>
       </View>
 
-      <Formik
+      <Formik<SignUpFormValues>
         initialValues={{ email: '', password: '', confirmPassword: '' }}
         validationSchema={SignUpSchema}
-        onSubmit={(values) => {
-          console.log('Sign up with:', values);
-        }}
+        onSubmit={handleSignUp}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
           <View style={styles.container}>
