@@ -1,50 +1,117 @@
-# Welcome to your Expo app 👋
+# carsForSale
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An **Expo React Native** app for buying and selling cars. This app allows users to register, log in, and browse car listings. Built with **TypeScript** and **Firebase Authentication** for a secure and smooth user experience.
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- User authentication with Email/Password via Firebase
+- Form validation using **Formik** and **Yup**
+- Navigation using **Expo Router**
+- Responsive UI for mobile devices
+- File-based routing for screens and components
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Tech Stack
 
-In the output, you'll find options to open the app in a
+- **React Native / Expo**
+- **TypeScript**
+- **Firebase** (Authentication)
+- **Formik & Yup** for form handling and validation
+- **Expo Router** for navigation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Screenshots / Preview
 
-## Get a fresh project
+![Sign Up Screen](https://github.com/user-attachments/assets/9a573075-6e1b-4c37-8e04-dc7e10a090a2)
+![Sign Up Success](https://github.com/user-attachments/assets/59330fa3-2300-4954-af7f-91ecb67e7941)
 
-When you're ready, run:
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v20.11.1)
+- npm (v9.9.4)
+- Expo CLI (`npm install -g expo-cli`)
+- Java JDK 11 (for Android emulator, if testing on Android)
+
+---
+
+### Installation
 
 ```bash
-npm run reset-project
+# Clone the repository
+git clone https://github.com/Sakhisizwe/carsForSale.git
+
+# Navigate to the project folder
+cd carsForSale
+
+# Install dependencies
+npm install
+````
+
+---
+
+### Running the App
+
+```bash
+# Start the Expo development server
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+You can open the app using any of the following options displayed in the Expo CLI:
 
-## Learn more
+* **Development Build**: Run a full development build on your device or emulator
+* **Android Emulator**: Launch the app on an Android virtual device
+* **iOS Simulator**: Launch the app on an iOS simulator (Mac only)
+* **Expo Go**: Open a limited sandbox version of your app on your physical device
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Project Structure
 
-## Join the community
+```
+carsForSale/
+├─ app/               # Screens and components
+├─ assets/            # Images, icons, fonts
+├─ constants/         # App-wide constants
+├─ hooks/             # Custom hooks
+├─ utils/             # Types, validation schemas, helpers
+├─ firebase.js        # Firebase configuration and auth setup
+├─ app.json           # Expo app configuration
+└─ README.md
+```
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Contributing
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/my-feature`)
+3. Make your changes and commit (`git commit -m "Add some feature"`)
+4. Push to your branch (`git push origin feature/my-feature`)
+5. Open a Pull Request
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Acknowledgements
+
+* [Expo Documentation](https://docs.expo.dev/)
+* [Firebase Documentation](https://firebase.google.com/docs)
+* [Formik Documentation](https://formik.org/docs/overview)
+* [Yup Documentation](https://github.com/jquense/yup)
+
+```
+
+This is **all-in-one**: installation, running, and usage instructions included.  
