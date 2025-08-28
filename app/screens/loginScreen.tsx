@@ -62,7 +62,7 @@ export default function LoginScreen() {
           <Button title={loading ? 'Logging in...' : 'Login'} onPress={() =>handleSubmit()} disabled={!isValid || loading} />
 
           <Text style={{ marginVertical: 10 }}>Don't have an account?</Text>
-          <Button title="Signup" onPress={() => router.push('/screens/signUpScreen')} />
+          <Button title="Signup" onPress={() => router.push('/screens/signUpScreen')} disabled = {loading} />
         </View>
         )}
       </Formik>
