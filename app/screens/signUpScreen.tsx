@@ -2,8 +2,9 @@ import { useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
-import { Alert, Button, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { auth } from '../../firebase';
+import AuthInputField from '../components/AuthInputField';
 import { SignUpFormValues } from '../utils/types';
 import { SignUpSchema } from '../utils/validationSchemas';
 
@@ -40,41 +41,34 @@ const handleSignUp = async (
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
           <View style={styles.container}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
+            <AuthInputField
+              label='Email'
               value={values.email}
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
-              placeholder="Enter your email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              style={styles.input}
+              placeholder='Enter email address'
+              error={errors.email && touched.email ? errors.email : undefined}
             />
-            {errors.email && touched.email && <Text style={styles.error}>{errors.email}</Text>}
 
-            <Text style={styles.label}>Password</Text>
-            <TextInput
+            <AuthInputField
+              label='Password'
               value={values.password}
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
+              error={errors.password && touched.password ? errors.password : undefined}
               placeholder="Enter your password"
               secureTextEntry
-              style={styles.input}
             />
-            {errors.password && touched.password && <Text style={styles.error}>{errors.password}</Text>}
 
-            <Text style={styles.label}>Confirm Password</Text>
-            <TextInput
+            <AuthInputField
+              label='Confirm password'
               value={values.confirmPassword}
               onChangeText={handleChange('confirmPassword')}
               onBlur={handleBlur('confirmPassword')}
               placeholder="Confirm your password"
+              error={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : undefined}
               secureTextEntry
-              style={styles.input}
             />
-            {errors.confirmPassword && touched.confirmPassword && (
-              <Text style={styles.error}>{errors.confirmPassword}</Text>
-            )}
 
             <Button title="Sign Up" onPress={() => handleSubmit()} disabled={isSubmitting || !isValid} />
 
@@ -107,22 +101,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     width: '80%',
-  },
-  label: {
-    marginTop: 12,
-    fontWeight: '500',
-  },
-  input: {
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    padding: 10,
-    marginBottom: 15,
-    width: '100%',
-  },
-  error: { 
-    fontSize: 12, 
-    color: 'red', 
-    marginBottom: 10 
   },
   loginTextContainer: { 
     marginTop: 20, 
