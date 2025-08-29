@@ -1,11 +1,27 @@
 import { useRouter } from 'expo-router';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Formik } from 'formik';
-import React from 'react';
-import { Button, Image, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Button, Image, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { auth } from '../../firebase';
+import { LoginValues } from '../utils/types';
 import { LoginSchema } from '../utils/validationSchemas';
 
 export default function LoginScreen() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async ({email, password}: LoginValues) => {
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push('/screens/homeScreen');
+    } catch (error: any) {
+      Alert.alert('Login Failed', error.message || 'Something went wrong.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -17,10 +33,8 @@ export default function LoginScreen() {
       <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={LoginSchema}
-      onSubmit={(values) => {
-        console.log('You have sign in as : ', values);
-      }}
-      >{({handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting}) => (
+      onSubmit={(values: LoginValues) => handleLogin(values)}
+      >{({handleChange, handleBlur, handleSubmit, values, errors, touched, isValid}) => (
         <View style={styles.container}>
           <Text style={styles.label}>Email</Text>
           <TextInput
@@ -45,7 +59,7 @@ export default function LoginScreen() {
           />
           {errors.password && touched.password && <Text style={styles.error}>{errors.password}</Text>}
 
-          <Button title="Login" onPress={() => handleSubmit()} disabled={isSubmitting || !isValid} />
+          <Button title={loading ? 'Logging in...' : 'Login'} onPress={() =>handleSubmit()} disabled={!isValid || loading} />
 
           <Text style={{ marginVertical: 10 }}>Don't have an account?</Text>
           <Button title="Signup" onPress={() => router.push('/screens/signUpScreen')} />

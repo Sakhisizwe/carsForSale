@@ -3,3 +3,8 @@ export type SignUpFormValues = {
   password: string;
   confirmPassword: string;
 };
+
+export interface LoginValues {
+  email: string;
+  password: string;
+}
