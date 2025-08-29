@@ -19,4 +19,5 @@ export interface AuthInputFieldProps extends TextInputProps {
   error?: string;
   secureTextEntry?: boolean;
   placeholder?: string;
+  style?: object; 
 }
