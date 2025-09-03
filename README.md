@@ -4,6 +4,12 @@ An **Expo React Native** app for buying and selling cars. This app allows users 
 
 ---
 
+## Why carsForSale?
+
+Buying and selling cars can be complicated and time-consuming. This app simplifies the process by providing a secure and easy-to-use mobile platform for users to browse, post, and manage car listings.
+
+---
+
 ## Features
 
 - User authentication with Email/Password via Firebase
@@ -26,8 +32,17 @@ An **Expo React Native** app for buying and selling cars. This app allows users 
 
 ## Screenshots / Preview
 
-![Sign Up Screen](https://github.com/user-attachments/assets/9a573075-6e1b-4c37-8e04-dc7e10a090a2)
-![Sign Up Success](https://github.com/user-attachments/assets/59330fa3-2300-4954-af7f-91ecb67e7941)
+![Existing user sign up](./assets/existing-user-signup.png)
+*Sign up screen showing validation for existing users.*
+
+![New user success sign up](./assets/new-user-sucess-signup.png)
+*Confirmation screen after successful registration.*
+
+![Logging In](./assets/logging-in.png)
+*User login screen.*
+
+![Cars Listing](./assets/car-listing.png)
+*Browsing available cars with filters.*
 
 ---
 
@@ -53,7 +68,7 @@ cd carsForSale
 
 # Install dependencies
 npm install
-````
+```
 
 ---
 
